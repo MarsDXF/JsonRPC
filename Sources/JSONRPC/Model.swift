@@ -79,13 +79,13 @@ import Foundation
 private let jsonrpcVersion = "2.0"
 
 internal struct JSONRequest: Codable {
-    var jsonrpc: String
-    var id: String
+//    var jsonrpc: String
+    var id: Int64
     var method: String
     var params: JSONObject
 
-    init(id: String, method: String, params: JSONObject) {
-        self.jsonrpc = jsonrpcVersion
+    init(id: Int64, method: String, params: JSONObject) {
+//        self.jsonrpc = jsonrpcVersion
         self.id = id
         self.method = method
         self.params = params

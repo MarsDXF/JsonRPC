@@ -66,7 +66,8 @@ public final class TCPClient {
             return self.group.next().makeFailedFuture(ClientError.notReady)
         }
         let promise: EventLoopPromise<JSONResponse> = channel.eventLoop.makePromise()
-        let request = JSONRequest(id: NSUUID().uuidString, method: method, params: JSONObject(params))
+        //let request = JSONRequest(id: NSUUID().uuidString, method: method, params: JSONObject(params))
+        let request = JSONRequest(id: 1, method: method, params: JSONObject(params))
         let requestWrapper = JSONRequestWrapper(request: request, promise: promise)
         let future = channel.writeAndFlush(requestWrapper)
         future.cascadeFailure(to: promise) // if write fails
@@ -159,7 +160,7 @@ private class Handler: ChannelInboundHandler, ChannelOutboundHandler {
     // outbound
     public func write(context: ChannelHandlerContext, data: NIOAny, promise: EventLoopPromise<Void>?) {
         let requestWrapper = self.unwrapOutboundIn(data)
-        queue.append((requestWrapper.request.id, requestWrapper.promise))
+        queue.append((String(requestWrapper.request.id), requestWrapper.promise))
         context.write(wrapOutboundOut(requestWrapper.request), promise: promise)
     }
 

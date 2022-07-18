@@ -110,10 +110,10 @@ private class Handler: ChannelInboundHandler {
             switch result {
             case .success(let handlerResult):
                 print("rpc handler returned success", handlerResult)
-                response = JSONResponse(id: request.id, result: handlerResult)
+                response = JSONResponse(id: String(request.id), result: handlerResult)
             case .failure(let handlerError):
                 print("rpc handler returned failure", handlerError)
-                response = JSONResponse(id: request.id, error: handlerError)
+                response = JSONResponse(id: String(request.id), error: handlerError)
             }
             context.channel.writeAndFlush(self.wrapOutboundOut(response), promise: nil)
         })

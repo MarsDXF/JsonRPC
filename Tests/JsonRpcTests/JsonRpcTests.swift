@@ -420,7 +420,8 @@ final class JSONRPCTests: XCTestCase {
         XCTAssertNotNil(response.error, "expected error to be non-nil")
         XCTAssertEqual(response.error!.code, JSONErrorCode.parseError.rawValue, "expected error ot match")
         // perform another call
-        let request = JSONRequest(id: UUID().uuidString, method: "foo", params: .none)
+//        let request = JSONRequest(id: UUID().uuidString, method: "foo", params: .none)
+        let request = JSONRequest(id: 1, method: "foo", params: .none)
         let json = try! JSONEncoder().encode(request)
         XCTAssertThrowsError(try client.request(string: String(data: json, encoding: .utf8)!).wait()) { error in
             XCTAssertEqual(error as! NIO.ChannelError, NIO.ChannelError.ioOnClosedChannel)
